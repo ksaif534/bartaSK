@@ -1,0 +1,1 @@
+<x-dashboard.edit-profile :profile-to-edit="$profileToEdit" />
