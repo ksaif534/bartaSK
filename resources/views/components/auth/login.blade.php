@@ -68,6 +68,12 @@
                     class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6" />
                 </div>
               </div>
+
+              <!-- Remember me -->
+              <div class="flex items-center mb-4">
+                <input id="remember" type="checkbox" name="remember" @checked(old('remember')) class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Check me out</label>
+              </div>
     
               <div>
                 <button

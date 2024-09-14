@@ -24,37 +24,37 @@
             <div class="mt-10 border-b border-gray-900/10 pb-12">
 
               <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div class="sm:col-span-3">
+                <div class="sm:col-span-full">
                   <label
                     for="first-name"
                     class="block text-sm font-medium leading-6 text-gray-900"
-                    >First name</label
+                    >Name</label
                   >
                   <div class="mt-2">
                     <input
                       type="text"
-                      name="first-name"
-                      id="first-name"
-                      autocomplete="given-name"
-                      value="{{ explode(" ", auth()->user()->name, 2)[0] }}"
+                      name="name"
+                      id="name"
+                      autocomplete="name"
+                      value="{{ auth()->user()->name }}"
                       class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6" />
                   </div>
                 </div>
 
-                <div class="sm:col-span-3">
+                <div class="sm:col-span-full">
                   <label
-                    for="last-name"
+                    for="username"
                     class="block text-sm font-medium leading-6 text-gray-900"
-                    >Last name</label
+                    >Username</label
                   >
                   <div class="mt-2">
                     <input
+                      id="username"
+                      name="username"
                       type="text"
-                      name="last-name"
-                      id="last-name"
-                      value="{{ explode(" ", auth()->user()->name, 2)[1] }}"
-                      autocomplete="family-name"
-                      class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6" />
+                      autocomplete="username"
+                      value="{{ auth()->user()->username }}"
+                      class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6" />
                   </div>
                 </div>
 

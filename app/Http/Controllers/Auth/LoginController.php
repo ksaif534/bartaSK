@@ -43,12 +43,20 @@ class LoginController extends Controller
                     'email'     => $validated['email'],
                     'password'  => $validated['password']
                 ];
+                $remember = ($request->has('remember') && $request->remember) ? true : false;
                 if (Auth::attempt($credentials)) {
-                    DB::table('users')->where('email',$user->email)
+                    if ($remember) {
+                        DB::table('users')->where('email',$user->email)
                         ->update([
                             'remember_token'    => Hash::make(rand()),
                             'updated_at'        => Carbon::now()
                         ]);
+                    }else{
+                        DB::table('users')->where('email',$user->email)
+                        ->update([
+                            'updated_at'        => Carbon::now()
+                        ]);
+                    }
                     return redirect()->route('dashboard.index');
                 }else{
                     return back()->with(['msg' => 'Wrong email or password']);
@@ -89,8 +97,8 @@ class LoginController extends Controller
     public function update(Request $request, string $login)
     {
         $validated      = $request->validate([
-            'first-name'    => 'required|max:255',
-            'last-name'     => 'required|max:255',
+            'name'          => 'required|max:255',
+            'username'      => 'required|max:255',
             'email'         => 'required|max:255',
             'password'      => 'required|max:255',
             'image'         => 'mimes:jpg,jpeg,png|nullable|max:2048',
@@ -98,7 +106,6 @@ class LoginController extends Controller
         ]);
         if (!empty($validated['image'])) {
             $fileName       = $validated['image']->getClientOriginalName();
-            $files          = Storage::files('public');
             $request->image->storeAs('public',$fileName,'local');
         }else{
             $fileName   = DB::table('users')
@@ -109,7 +116,8 @@ class LoginController extends Controller
         $updateProfile  = DB::table('users')
                         ->where('id',$login)
                         ->update([
-                            'name'      => $validated['first-name'] . " " . $validated['last-name'],
+                            'name'      => $validated['name'],
+                            'username'  => $validated['username'],
                             'email'     => $validated['email'],
                             'password'  => Hash::make($validated['password']),
                             'image'     => $fileName,
