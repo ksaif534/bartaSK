@@ -1,16 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\{RegisterController,LoginController};
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\{AuthenticationController,DashboardController,ProfileController};
 
 Route::get('/',function(){
     return redirect()->route('register.create');
 });
 
 Route::group(['prefix' => 'auth'], function(){
-    Route::resource('/register',RegisterController::class)->only(['create','store']);
-    Route::resource('/login',LoginController::class)->except(['index']);
-    Route::post('/logout',[LoginController::class,'logout'])->name('auth.logout');
-    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard.index');
+    Route::get('/register/create',[AuthenticationController::class,'create'])->name('register.create');
+    Route::post('/register/store',[AuthenticationController::class,'store'])->name('register.store');
+    Route::get('/login/create',[AuthenticationController::class,'createLogin'])->name('login.create');
+    Route::post('/login/store',[AuthenticationController::class,'storeLogin'])->name('login.store');
+    Route::post('/logout',[AuthenticationController::class,'logout'])->name('auth.logout');
+});
+
+Route::group(['prefix' => 'dashboard'], function(){
+    Route::get('/',[DashboardController::class,'index'])->name('dashboard.index');
+    Route::resource('profile',ProfileController::class)->only(['edit','show','update']);
 });
