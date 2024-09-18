@@ -8,7 +8,7 @@
         @else
         
         @endif
-      <form action="{{ route('profile.update',auth()->user()->id ) }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('profiles.update',auth()->user()->id ) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <div class="space-y-12">
