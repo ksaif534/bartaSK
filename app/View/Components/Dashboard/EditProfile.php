@@ -11,7 +11,7 @@ class EditProfile extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public Object $profileToEdit)
+    public function __construct(public object $profileToEdit)
     {
         //
     }
