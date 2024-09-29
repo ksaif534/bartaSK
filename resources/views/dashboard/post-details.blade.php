@@ -1,0 +1,1 @@
+<x-dashboard.post-details :post="$post" />

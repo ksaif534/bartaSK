@@ -1,1 +1,1 @@
-<x-dashboard.index />
+<x-dashboard.index :posts="$posts" />

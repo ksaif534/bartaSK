@@ -4,6 +4,7 @@ namespace App\View\Components\Dashboard;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
 class Index extends Component
@@ -11,7 +12,7 @@ class Index extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(public Collection $posts)
     {
         //
     }

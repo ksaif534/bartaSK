@@ -1,0 +1,1 @@
+<x-dashboard.create-post />

@@ -5,8 +5,6 @@
             <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
                 <span class="font-medium">{{ session('msg') }}</span> 
             </div>
-        @else
-        
         @endif
       <form action="{{ route('profiles.update',auth()->user()->id ) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')

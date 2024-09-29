@@ -20,4 +20,5 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('profiles', ProfileController::class)->only(['edit', 'show', 'update']);
+    Route::resource('posts', DashboardController::class)->except(['index']);
 });
