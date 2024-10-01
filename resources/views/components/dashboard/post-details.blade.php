@@ -64,21 +64,20 @@
                                         aria-labelledby="user-menu-button"
                                         tabindex="-1">
                                     <a
-                                            href="#"
+                                            href="{{ route('posts.edit',$post->id) }}"
                                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                             role="menuitem"
                                             tabindex="-1"
                                             id="user-menu-item-1"
                                     >Edit</a
                                     >
-                                    <a
-                                            href="#"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            role="menuitem"
-                                            tabindex="-1"
-                                            id="user-menu-item-2"
-                                    >Delete</a
-                                    >
+                                    <form action="{{ route('posts.destroy',$post->id) }}" method="POST" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                                            Delete
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
 
