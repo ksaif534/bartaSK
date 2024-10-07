@@ -6,7 +6,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('register.create');
+    return redirect()->route('login.create');
 });
 
 Route::group(['prefix' => 'auth'], function () {
@@ -21,4 +21,5 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('profiles', ProfileController::class)->only(['edit', 'show', 'update']);
     Route::resource('posts', DashboardController::class)->except(['index']);
+    Route::get('/search', [DashboardController::class, 'search'])->name('dashboard.search');
 });

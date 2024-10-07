@@ -1,0 +1,1 @@
+<x-dashboard.search-user :users="$users" />

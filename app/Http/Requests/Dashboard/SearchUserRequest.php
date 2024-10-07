@@ -4,7 +4,7 @@ namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrUpdatePostRequest extends FormRequest
+class SearchUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class StoreOrUpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required|max:2047',
-            'picture' => 'required|mimes:jpg,jpeg,png,bmp',
+            'search' => 'required|max:255',
         ];
     }
 }

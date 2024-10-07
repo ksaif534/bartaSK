@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Dashboard\SearchUserRequest;
 use App\Http\Requests\Dashboard\StoreOrUpdatePostRequest;
 use App\Services\CreatePost;
 use App\Services\FetchNewsFeed;
+use App\Services\SearchUser;
 use App\Services\ShowPostDetails;
 use App\Services\UpdatePost;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +29,17 @@ class DashboardController
     public function create()
     {
         return view('dashboard.create-post');
+    }
+
+    /**
+     * Search Post
+     */
+    public function search(SearchUserRequest $request, SearchUser $user)
+    {
+        $validated = $request->validated();
+        $users = $user->search($validated);
+
+        return view('dashboard.search-user', compact('users'));
     }
 
     /**

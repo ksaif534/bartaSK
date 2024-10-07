@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\{DB,Hash};
 
 class ProfileController
 {
@@ -35,7 +35,7 @@ class ProfileController
     /**
      * Update the specified user profile resource in storage.
      */
-    public function update(Request $request, string $login)
+    public function update(Request $request, User $profile)
     {
         $validated = $request->validate(
             [
@@ -51,23 +51,32 @@ class ProfileController
             $fileName = $validated['image']->getClientOriginalName();
             $request->image->storeAs('public', $fileName, 'local');
         } else {
-            $fileName = DB::table('users')
-                ->where('id', $login)
-                ->first()
-                ->image;
+            $fileName = $profile->image;
+            // $fileName = DB::table('users')
+            //     ->where('id', $login)
+            //     ->first()
+            //     ->image;
         }
-        $updateProfile = DB::table('users')
-            ->where('id', $login)
-            ->update(
-                [
-                    'name' => $validated['name'],
-                    'username' => $validated['username'],
-                    'email' => $validated['email'],
-                    'password' => Hash::make($validated['password']),
-                    'image' => $fileName,
-                    'bio' => $validated['bio'],
-                ]
-            );
+        $updateProfile = $profile->update([
+            'name' => $validated['name'],
+            'username' => $validated['username'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'image' => $fileName,
+            'bio' => $validated['bio'],
+        ]);
+        // $updateProfile = DB::table('users')
+        //     ->where('id', $login)
+        //     ->update(
+        //         [
+        //             'name' => $validated['name'],
+        //             'username' => $validated['username'],
+        //             'email' => $validated['email'],
+        //             'password' => Hash::make($validated['password']),
+        //             'image' => $fileName,
+        //             'bio' => $validated['bio'],
+        //         ]
+        //     );
         if ($updateProfile) {
             return back()->with(['msg' => 'Profile Updated Successfully']);
         } else {

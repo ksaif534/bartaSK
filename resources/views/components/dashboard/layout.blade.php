@@ -38,10 +38,20 @@
                 <div class="flex h-16 justify-between">
                     <div class="flex">
                         <div class="flex flex-shrink-0 items-center">
-                        <a href="{{ route('dashboard.index') }}">
-                            <h2 class="font-bold text-2xl">Barta</h2>
-                        </a>
+                            <a href="{{ route('dashboard.index') }}">
+                                <h2 class="font-bold text-2xl">Barta</h2>
+                            </a>
                         </div>
+                        <!-- Search input -->
+                        <form action="{{ route('dashboard.search') }}" method="GET" class="flex items-center">
+                            <input
+                                    type="text"
+                                    placeholder="Search..."
+                                    name="search"
+                                    class="border-2 border-gray-300 bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
+                            />
+                            <button type="submit" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2">Search</button>
+                        </form>
                         <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                         <!-- Current: "border-gray-800 text-gray-900 font-semibold", Default: "border-transparent text-gray-600 hover:border-gray-300 hover:text-gray-800" -->
                         <a
@@ -278,6 +288,7 @@
         {{ $createPost ?? '' }}
         {{ $postDetails ?? '' }}
         {{ $editPost ?? '' }}
+        {{ $searchUser ?? '' }}
         <!-- News Feed -->
         @foreach ($posts as $post)
             <section id="newsfeed" class="space-y-6">
@@ -373,6 +384,7 @@
             
                     <!-- Content -->
                     <div class="py-4 text-gray-700 font-normal">
+                        <img src="{{ url('storage/'.$post->picture) }}" class="min-h-auto w-full rounded-lg object-cover max-h-64 md:max-h-72" alt="">
                         <p>
                             {{ str($post->description)->limit(500) }}
                         </p>

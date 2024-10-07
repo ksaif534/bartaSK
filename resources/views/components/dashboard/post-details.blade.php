@@ -1,6 +1,6 @@
 <x-dashboard.layout :post="$post">
     <x-slot name="postDetails">
-        <!-- Barta Card -->
+        <!-- Barta Card With Image -->
         <article
         class="bg-white border-2 border-black rounded-lg shadow mx-auto max-w-none px-4 py-5 sm:px-6">
             <!-- Barta Card Top -->
@@ -89,6 +89,7 @@
     
             <!-- Content -->
             <div class="py-4 text-gray-700 font-normal">
+                <img src="{{ url('storage/'.$post->picture) }}" class="min-h-auto w-full rounded-lg object-cover max-h-64 md:max-h-72" alt="">
                 <p>
                     {{ $post->description }}
                 </p>
