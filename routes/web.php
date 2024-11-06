@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Dashboard\EditPost;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,6 +21,8 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('profiles', ProfileController::class)->only(['edit', 'show', 'update']);
-    Route::resource('posts', DashboardController::class)->except(['index']);
+    Route::resource('posts', DashboardController::class)->except(['index', 'edit', 'update']);
+    Route::get('posts/{post}/edit', EditPost::class)->name('posts.edit');
+    // Route::patch('posts/{postId}/update', [EditPost::class,'update'])->name('posts.update');
     Route::get('/search', [DashboardController::class, 'search'])->name('dashboard.search');
 });

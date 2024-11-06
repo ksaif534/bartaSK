@@ -18,9 +18,10 @@ class DashboardController
      */
     public function index(FetchNewsFeed $newsFeed)
     {
-        $posts = $newsFeed->posts();
+        // $posts = $newsFeed->posts();
 
-        return view('dashboard.index', compact('posts'));
+        return view('livewire.dashboard.index');
+        // return view('dashboard.index', compact('posts'));
     }
 
     /**
