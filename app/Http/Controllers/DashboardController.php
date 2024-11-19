@@ -9,7 +9,8 @@ use App\Services\FetchNewsFeed;
 use App\Services\SearchUser;
 use App\Services\ShowPostDetails;
 use App\Services\UpdatePost;
-use Illuminate\Support\Facades\{DB,Auth};
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController
 {
@@ -22,7 +23,7 @@ class DashboardController
 
         $notifications = DB::table('notifications')->whereIn('post_id', Auth::user()->posts()->pluck('id'))->whereNull('read_at')->get();
 
-        return view('livewire.dashboard.index',compact('notifications'));
+        return view('livewire.dashboard.index', compact('notifications'));
         // return view('dashboard.index', compact('posts'));
     }
 

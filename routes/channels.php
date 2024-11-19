@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
-use Illuminate\Support\Facades\Auth;
 
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
@@ -11,10 +10,10 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 //     return true;
 // });
 
-Broadcast::channel('liked-user', function() {
+Broadcast::channel('liked-user', function () {
     return true;
-},['guards' => ['web']]);
+}, ['guards' => ['web']]);
 
-Broadcast::channel('commentedUser', function() {
+Broadcast::channel('commentedUser', function () {
     return true;
 }, ['guards' => ['web']]);

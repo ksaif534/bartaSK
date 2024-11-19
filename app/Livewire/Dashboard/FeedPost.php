@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Dashboard;
 
-use Livewire\Component;
-use Livewire\Attributes\Validate;
 use App\Events\UserLikesPost;
-use App\Models\{Like,Post};
+use App\Models\Like;
+use App\Models\Post;
 use App\Notifications\UserLikedPost;
-use Illuminate\Support\Facades\{DB,Auth,Artisan};
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 class FeedPost extends Component
 {
@@ -18,14 +20,14 @@ class FeedPost extends Component
         $authUser = Auth::user();
 
         if ($authUser) {
-            $checkExistingLike = Like::where('user_id',$authUser->id)->where('post_id',$postId)->latest()->first();
+            $checkExistingLike = Like::where('user_id', $authUser->id)->where('post_id', $postId)->latest()->first();
 
-            $postToUpdate = Post::where('id',$postId)->first();
+            $postToUpdate = Post::where('id', $postId)->first();
 
             if ($checkExistingLike) {
                 $checkExistingLike->delete();
 
-                DB::table('notifications')->where('notifiable_id',$authUser->id)->delete();
+                DB::table('notifications')->where('notifiable_id', $authUser->id)->delete();
 
                 $postToUpdate->decrement('like_count');
 
@@ -39,22 +41,22 @@ class FeedPost extends Component
             $updatedPostLike = $postToUpdate->like_count;
 
             $newLike = Like::create([
-                'user_id'   => $authUser->id,
-                'post_id'   => $postId
+                'user_id' => $authUser->id,
+                'post_id' => $postId,
             ]);
 
-            $message = $authUser->name . ' Liked your post';
+            $message = $authUser->name.' Liked your post';
 
             UserLikesPost::dispatch($message, $authUser->id, $postId);
 
-            Artisan::call('queue:work',['--once' => true]);
+            Artisan::call('queue:work', ['--once' => true]);
 
-            $postAuthor = Post::where('id',$postId)->first()->user()->first();
+            $postAuthor = Post::where('id', $postId)->first()->user()->first();
 
             $postAuthor->notify(new UserLikedPost($postId));
-            
-            DB::table('notifications')->where('notifiable_id',$postAuthor->id)->update([
-                'post_id'   => $postId
+
+            DB::table('notifications')->where('notifiable_id', $postAuthor->id)->update([
+                'post_id' => $postId,
             ]);
 
             return back()->with(['msg' => 'Post Liked Successfully', 'can_change_fill' => true, 'post_id' => $postId, 'like_count' => $updatedPostLike]);

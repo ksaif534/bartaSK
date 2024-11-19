@@ -12,13 +12,13 @@ class Like extends Model
 
     protected $guarded = [];
 
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class,'user_id','id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function post() : BelongsTo
+    public function post(): BelongsTo
     {
-        return $this->belongsTo(Post::class,'post_id','id');
+        return $this->belongsTo(Post::class, 'post_id', 'id');
     }
 }

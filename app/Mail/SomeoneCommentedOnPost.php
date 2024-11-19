@@ -2,12 +2,13 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\{Content,Envelope,Address};
-use Illuminate\Queue\SerializesModels;
 use App\Models\User;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
 
 class SomeoneCommentedOnPost extends Mailable
 {
@@ -28,7 +29,7 @@ class SomeoneCommentedOnPost extends Mailable
     {
         return new Envelope(
             from: new Address($this->user->email, $this->user->name),
-            subject: $this->user->name . ' Commented On Your Post',
+            subject: $this->user->name.' Commented On Your Post',
         );
     }
 
@@ -40,8 +41,8 @@ class SomeoneCommentedOnPost extends Mailable
         return new Content(
             markdown: 'mail.someone-commented-on-post',
             with: [
-                'user'          => $this->user,
-                'postAuthor'    => $this->postAuthor
+                'user' => $this->user,
+                'postAuthor' => $this->postAuthor,
             ]
         );
     }
