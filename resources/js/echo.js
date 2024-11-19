@@ -62,11 +62,12 @@ function changeSvg(notificationCount){
 window.Echo.private(`liked-user`)
     .listen('UserLikesPost', (e) => {
         changeSvg(notificationCount);
-        console.log('Congratulations, event broadcasted on the client side');
+        console.log('Congratulations, event broadcasted on the client side. Someone Liked your Post');
     })
 
 window.Echo.private(`commentedUser`)
     .listen('SomeoneCommentsOnPost', (e) => {
+        changeSvg(notificationCount);
         console.log('Congrats, Someone Commented on your post');
     })
 
