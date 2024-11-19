@@ -9,7 +9,7 @@ use App\Services\FetchNewsFeed;
 use App\Services\SearchUser;
 use App\Services\ShowPostDetails;
 use App\Services\UpdatePost;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\{DB,Auth};
 
 class DashboardController
 {
@@ -20,7 +20,9 @@ class DashboardController
     {
         // $posts = $newsFeed->posts();
 
-        return view('livewire.dashboard.index');
+        $notifications = DB::table('notifications')->whereIn('post_id', Auth::user()->posts()->pluck('id'))->whereNull('read_at')->get();
+
+        return view('livewire.dashboard.index',compact('notifications'));
         // return view('dashboard.index', compact('posts'));
     }
 
@@ -64,6 +66,8 @@ class DashboardController
     public function show(string $id, ShowPostDetails $postDetails)
     {
         $post = $postDetails->show($id);
+
+        // return view('livewire.dashboard.post-details',compact('post'));
 
         return view('dashboard.post-details', compact('post'));
     }

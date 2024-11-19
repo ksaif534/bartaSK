@@ -179,5 +179,6 @@
             <!-- /Barta Card Bottom -->
         </article>
         <!-- /Barta Card -->
+        {{-- <livewire:dashboard.post-details :post="$post" /> --}}
     </x-slot>
 </x-dashboard.layout>

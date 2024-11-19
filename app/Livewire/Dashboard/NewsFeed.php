@@ -2,10 +2,9 @@
 
 namespace App\Livewire\Dashboard;
 
-use Illuminate\Support\Facades\DB;
-// use App\Models\Post;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Illuminate\Support\Facades\{DB};
+use Livewire\{Component,WithPagination};
+use App\Models\Post;
 
 class NewsFeed extends Component
 {
@@ -22,11 +21,17 @@ class NewsFeed extends Component
 
     public function render()
     {
-        $posts = DB::table('posts')
-            ->join('users', 'users.id', '=', 'posts.user_id')
-            ->select('users.username', 'users.image', 'posts.*')
+        // $posts = DB::table('posts')
+        //     ->join('users', 'users.id', '=', 'posts.user_id')
+        //     ->select('users.username', 'users.image', 'posts.*')
+        //     ->orderBy('posts.id', 'asc')
+        //     ->cursorPaginate($this->perPage);
+        
+        $posts = Post::with(['user:id,username,image','comments.user:id,username,image'])
+            ->select('posts.*')
             ->orderBy('posts.id', 'asc')
             ->cursorPaginate($this->perPage);
+
 
         return view('livewire.dashboard.news-feed', [
             'posts' => $posts,
