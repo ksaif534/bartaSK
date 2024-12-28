@@ -18,3 +18,7 @@ General guidelines to use this application:
 
 2. Don't forget to run `php artisan reverb:start` before testing out realtime notification sending. Also check the 
    browser console to ensure realtime notification is actually being sent. 
+
+# Testing Guidelines
+
+1. Run `composer pest tests/Unit/test_name.php` or `composer pest tests/Feature/test_name.php` to run the PestPHP Tests.
