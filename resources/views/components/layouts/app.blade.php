@@ -23,9 +23,15 @@
             font-family: 'Inter', sans-serif;
         }
         </style>
-        <script>
-            var notificationCount = '{{ $notifications->count() }}';
-        </script>
+        @if (isset($notifications))
+            <script>
+                var notificationCount = '{{ $notifications->count() }}';
+            </script>
+        @else
+            <script>
+                var notificationCount = 0;
+            </script>
+        @endif
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>

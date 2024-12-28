@@ -23,7 +23,7 @@ class StoreOrUpdatePostRequest extends FormRequest
     {
         return [
             'description' => 'required|max:2047',
-            'picture' => 'required|mimes:jpg,jpeg,png,bmp',
+            'picture' => 'image:jpg,jpeg,png', //Not required for testing purposes for the time being
         ];
     }
 }
